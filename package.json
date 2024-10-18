@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.24.0",
+    "@react-navigation/native": "^6.1.18",
+    "@react-navigation/stack": "^6.4.1",
+    "expo": "^51.0.38",
+    "expo-env": "^1.1.1",
+    "firebase": "^10.14.1",
+    "react-native-elements": "^3.4.3",
+    "react-navigation": "^5.0.0"
+  },
+  "scripts": {
+    "start": "npx expo start",
+    "android": "npx expo run:android",
+    "ios": "npx expo run:ios",
+    "web": "npx expo start --web"
+  }
+}
