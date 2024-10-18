@@ -37,6 +37,7 @@ export default function SignUpScreen({ navigation }) {
         onChangeText={setEmail} 
         keyboardType="email-address" 
         autoCapitalize="none" 
+        style={{ backgroundColor: 'red' }}
       />
       <TextInput 
         placeholder="Password" 

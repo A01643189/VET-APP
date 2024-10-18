@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image } from 'react-native';
+import { Text } from 'react-native';
 import { db } from '../firebase/firebase';
 import { doc, getDoc } from "firebase/firestore";
+
+import { Avatar, YStack } from 'tamagui';
 
 export default function AnimalDetail({ route }) {
   const { animalId } = route.params;
@@ -14,16 +16,22 @@ export default function AnimalDetail({ route }) {
     };
     fetchAnimal();
   }, [animalId]);
-
+  
   if (!animal) {
     return <Text>Loading...</Text>;
   }
 
   return (
-    <View>
-      <Text>Name: {animal.name}</Text>
-      <Text>Age: {animal.age}</Text>
-      <Image source={{ uri: animal.picture }} style={{ width: 100, height: 100 }} />
-    </View>
+    <YStack alignItems="center" gap="$2">
+      <Avatar circular size="$20" marginBottom="$4">
+        <Avatar.Image
+          accessibilityLabel="Cam"
+          src={animal.picture}
+        />
+        <Avatar.Fallback backgroundColor="$blue10" />
+      </Avatar>
+      <Text>{animal.name}</Text>
+      <Text>{animal.age} years</Text>
+    </YStack>
   );
 }

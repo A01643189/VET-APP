@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button } from 'react-native';
 import { db } from '../firebase/firebase';
 import { addDoc, collection } from "firebase/firestore";
+import { Input, Button, YStack } from 'tamagui';
 
 export default function NewAnimal({ navigation }) {
   const [name, setName] = useState('');
@@ -9,16 +9,20 @@ export default function NewAnimal({ navigation }) {
   const [picture, setPicture] = useState('');
 
   const handleAddAnimal = async () => {
-    await addDoc(collection(db, 'animals'), { name, age, picture });
-    navigation.navigate('MainMenu');
+    try {
+      await addDoc(collection(db, 'animals'), { name, age, picture });
+      navigation.navigate('MainMenu');
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
   };
 
   return (
-    <View>
-      <TextInput placeholder="Name" value={name} onChangeText={setName} />
-      <TextInput placeholder="Age" value={age} onChangeText={setAge} />
-      <TextInput placeholder="Picture URL" value={picture} onChangeText={setPicture} />
-      <Button title="Add Animal" onPress={handleAddAnimal} />
-    </View>
+    <YStack gap="$2">
+      <Input placeholder="Name" value={name} onChangeText={setName} size="$4" />
+      <Input placeholder="Age" value={age} onChangeText={setAge} size="$4" />
+      <Input placeholder="Picture URL" value={picture} onChangeText={setPicture} size="$4" />
+      <Button title="Add Animal" theme="active" onPress={handleAddAnimal}>Add Animal</Button>
+    </YStack>
   );
 }
