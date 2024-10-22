@@ -4,7 +4,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { Button, ListItem, YGroup, YStack } from 'tamagui'
 import { ChevronRight, Star } from '@tamagui/lucide-icons'
 
-export default function MainMenu({ navigation }) {
+export default function MainMenu({ navigation, route }) {
   const [animals, setAnimals] = useState([]);
 
   useEffect(() => {
@@ -14,6 +14,12 @@ export default function MainMenu({ navigation }) {
     };
     fetchAnimals();
   }, []);
+
+  useEffect(() => {
+    if (route.params?.newAnimal) {
+      setAnimals((prevAnimals) => [...prevAnimals, route.params.newAnimal]);
+    }
+  }, [route.params?.newAnimal]);
 
   return (
     <YStack gap="$4" >
