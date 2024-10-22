@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Text } from 'react-native';
+import { View, TextInput, Text } from 'react-native';
 import { auth } from '../firebase/firebase';  // Import auth from firebase.js
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { Button, YStack, Input } from 'tamagui'
 
 export default function SignUpScreen({ navigation }) {
   const [email, setEmail] = useState('');
@@ -30,23 +31,25 @@ export default function SignUpScreen({ navigation }) {
   };
 
   return (
-    <View>
-      <TextInput 
+    <YStack gap="$2" textColor="$black" >
+      <Input 
         placeholder="Email" 
         value={email} 
         onChangeText={setEmail} 
         keyboardType="email-address" 
         autoCapitalize="none" 
-        style={{ backgroundColor: 'red' }}
+        size="$4"
       />
-      <TextInput 
+      <Input 
         placeholder="Password" 
         value={password} 
         onChangeText={setPassword} 
         secureTextEntry 
+        size="$4"
       />
       {error !== '' && <Text style={{ color: 'red' }}>{error}</Text>}
-      <Button title="Sign Up" onPress={handleSignUp} />
-    </View>
+      <Button onPress={handleSignUp} theme="active" >SignUp</Button>
+      <Button onPress={() => navigation.navigate('Login')} variant="disabled" >Already have an account? LogIn</Button>
+      </YStack>
   );
 }
